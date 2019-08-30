@@ -13,7 +13,7 @@ namespace Marvel.Controllers
     public class ComicController : Controller
     {
         /// <summary>
-        /// Lista todos os personagens Marvel utilizando páginação dinamica
+        /// Lista todos as comics Marvel utilizando páginação dinamica
         /// </summary>
         /// <param name="id_personagem">Id da comic no BD da API</param>
         /// <param name="limit">Número máximo de resultados a serem exibidos</param>
@@ -76,6 +76,32 @@ namespace Marvel.Controllers
                     ViewBag.total_lista = lista_comic.Count;
 
                 }
+                return View(lista_comic);
+            }
+            catch (Exception e)
+            {
+                ViewBag.title = "Um erro ocorreu";
+                ViewBag.message = "Um erro ocorreu, por favor, tente novamente";
+                return View("Message");
+            }
+
+        }
+
+        /// <summary>
+        /// Lista todos as comics salvas no BD
+        /// </summary>
+        /// <returns>Lista do tipo comic e Viewbag com todos os parâmetros para contrução do paginador</returns>
+        public ActionResult Salvos()
+        {
+            try
+            {
+                Comic comic;
+                ComicRepositorio cRep = new ComicRepositorio();
+                List<Comic> lista_comic = new List<Comic>();
+
+                lista_comic = cRep.ReturnAll();
+
+                ViewBag.total_lista = lista_comic.Count;
                 return View(lista_comic);
             }
             catch (Exception e)
@@ -198,65 +224,6 @@ namespace Marvel.Controllers
 
         }
 
-        /// <summary>
-        /// Salva todos os personagens do BD da API no BD local
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult SalvarComics()
-        {
-            Comic comic;
-
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/json"));
-
-                string ts = DateTime.Now.Ticks.ToString();
-                string publicKey = "3dac5671135fab935c77add36e46abb6";
-                string hash = GerarHash(ts, publicKey, "c109c5ae5fe25f81bc149b4cf7a2407678d5dc40");
-
-                List<Comic> lista_comic = new List<Comic>();
-
-                int limit = 20;
-                int offset = 0;
-                int count = 0;
-                int size = limit;
-                int total = 51;
-
-                do
-                {
-                    HttpResponseMessage response = client.GetAsync("https://gateway.marvel.com:443/v1/public/comics?ts=" + ts + "&limit=" + limit + "&offset=" + offset + "&apikey=" + publicKey + "&hash=" + hash).Result;
-                    offset += 20;
-
-                    string conteudo = response.Content.ReadAsStringAsync().Result;
-
-                    dynamic resultado = JsonConvert.DeserializeObject(conteudo);
-
-                    size = Convert.ToInt32(resultado.data.count);
-                    count += size;
-                    total = Convert.ToInt32(resultado.data.total);
-
-                    for (int j = 0; j < size; j++)
-                    {
-                        comic = new Comic();
-                        comic.Id = resultado.data.results[j].id;
-                        comic.Titulo = resultado.data.results[j].name;
-                        comic.Descricao = resultado.data.results[j].description;
-                        comic.Pic_url = resultado.data.results[j].thumbnail.path + "." +
-                            resultado.data.results[j].thumbnail.extension;
-                        comic.Wiki_url = resultado.data.results[j].urls[1].url;
-                        lista_comic.Add(comic);
-                    }
-                }
-                while (count < total);
-
-                lista_comic = null;
-
-            }
-
-            return View();
-        }
 
         /// <summary>
         /// Gera um hash MD5 para a API
@@ -275,6 +242,7 @@ namespace Marvel.Controllers
             return BitConverter.ToString(bytesHash)
                 .ToLower().Replace("-", String.Empty);
         }
+
 
     }
 }

@@ -34,6 +34,15 @@ namespace Marvel.Models
         }
 
         /// <summary>
+        /// Retorna todos os personagens do BD local
+        /// </summary>
+        /// <returns>Lista de objeto do tipo personagem</returns>
+        public virtual List<Personagem> ReturnAll()
+        {
+            return DbSet.ToList();
+        }
+
+        /// <summary>
         /// Procura o personagem pelo id no BD da API
         /// </summary>
         /// <param name="id_marvel">Id do personagem no BD da API</param>

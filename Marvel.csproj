@@ -287,6 +287,8 @@
     <Content Include="Views\Personagem\Index.cshtml" />
     <Content Include="Views\Comic\Index.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
+    <Content Include="Views\Comic\Salvos.cshtml" />
+    <Content Include="Views\Personagem\Salvos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

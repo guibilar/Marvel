@@ -34,6 +34,15 @@ namespace Marvel.Models
         }
 
         /// <summary>
+        /// Retorna todos os comics salvos
+        /// </summary>
+        /// <returns>Objeto do tipo comic</returns>
+        public virtual List<Comic> ReturnAll()
+        {
+            return DbSet.ToList();
+        }
+
+        /// <summary>
         /// Procura a comic pelo id no BD da API
         /// </summary>
         /// <param name="id_marvel">Id da comic no BD da API</param>
