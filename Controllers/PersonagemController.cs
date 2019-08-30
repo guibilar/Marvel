@@ -182,7 +182,7 @@ namespace Marvel.Controllers
                 {
                     pRep.RemoveById(personagem.Id);
                     ViewBag.title = "Sucesso";
-                    ViewBag.message = "Personagem excluido com sucesso";
+                    ViewBag.message = "Personagem excluído com sucesso";
                     return View("Message");
                 }
             }

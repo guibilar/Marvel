@@ -156,6 +156,7 @@ namespace Marvel.Controllers
                         comic_salvar.Id_marvel = resultado.data.results[0].id;
                         comic_salvar.Titulo = resultado.data.results[0].title;
                         comic_salvar.Descricao = resultado.data.results[0].description;
+                        comic_salvar.Preco = resultado.data.results[0].prices[0].price;
                         comic_salvar.Pic_url = resultado.data.results[0].thumbnail.path + "." +
                             resultado.data.results[0].thumbnail.extension;
                         comic_salvar.Wiki_url = resultado.data.results[0].urls[0].url;
@@ -211,7 +212,7 @@ namespace Marvel.Controllers
                 {
                     cRep.RemoveById(comic.Id);
                     ViewBag.title = "Sucesso";
-                    ViewBag.message = "Comic excluida com sucesso";
+                    ViewBag.message = "Comic excluída com sucesso";
                     return View("Message");
                 }
             }
