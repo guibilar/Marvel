@@ -1,0 +1,72 @@
+﻿<br />
+<a type="button" href="/Personagem/SalvarPersonagens/" title="Salva localmente todos os personagens" class="btn btn-primary">Salvar personagens</a>
+<a type="button" href="/Comic/SalvarComics/" title="Salva localmente todos os comics" class="btn btn-primary">Salvar comics</a>
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        @{
+            if ( Convert.ToInt32(ViewBag.total_lista) > 0)
+            {
+                <div class="row">
+                    <!-- Elemento comic -->
+                    @foreach (var comic in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <a href="#"><img class="card-img-top" src="@comic.Pic_url" alt="@comic.Titulo"></a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="@comic.Wiki_url" target="_blank">@comic.Titulo</a>
+                                    </h4>
+                                    <h5>USD$ @comic.Preco</h5>
+                                    <p class="card-text">@comic.Descricao</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/Comic/SalvarComic/?id_comic_marvel=@comic.Id_marvel" type="button" class="btn btn-primary btn-sm" title="Salvar localmente"><i class="fas fa-download"></i></a>
+                                    <a href="/Comic/ExcluirComic/?id_comic_marvel=@comic.Id_marvel" type="button" class="btn btn-danger btn-sm" title="Excluir cópia local"><i class="fas fa-trash-alt"></i></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- /Elemento comic -->
+                </div>
+                <!-- Paginador -->
+                if (ViewBag.total > ViewBag.limit)
+                {
+                    int offset = ViewBag.offset;
+                    int limit = ViewBag.limit;
+                    int atual = 0;
+                    int retorna = offset - limit;
+                    int avanca = offset + limit;
+                    int id_personagem = ViewBag.id_personagem;
+
+                    <div class="paginator">
+                        <a href="/Comic/Index/?id_personagem=@id_personagem&limit=@ViewBag.limit&offset=@retorna ">&laquo;</a>
+                        @for (int i = 0; i < Convert.ToInt32(ViewBag.paginator); i++)
+                        {
+                            if (atual != offset)
+                            {
+
+                                <a href="/Comic/Index/?id_personagem=@id_personagem&limit=@ViewBag.limit&offset=@atual ">@i</a>
+                            }
+                            else
+                            {
+                                <a class="active" href="/Comic/Index/?id_personagem=@id_personagem&limit=@ViewBag.limit&offset=@atual ">@i</a>
+                            }
+                            { atual += limit; }
+
+                        }
+                        <a href="/Comic/Index/?id_personagem=@id_personagem&limit=@ViewBag.limit&offset=@avanca ">&raquo;</a>
+                    </div>
+                }
+                <!-- /Paginador -->
+            }
+            else
+            {
+                <h1>Nenhuma comic encontrada.</h1>
+            }
+        }
+    </div>
+</div>

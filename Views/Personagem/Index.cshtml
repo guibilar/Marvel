@@ -1,0 +1,61 @@
+﻿<br />
+<a type="button" href="/Personagem/SalvarPersonagens/" title="Salva localmente todos os personagens" class="btn btn-primary">Salvar personagens</a>
+<a type="button" href="/Comic/SalvarComics/" title="Salva localmente todos os comics" class="btn btn-primary">Salvar comics</a>
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <!-- Elemento personagem -->
+            @foreach (var personagem in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="@personagem.Pic_url" alt="@personagem.Nome"></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="@personagem.Wiki_url" target="_blank">@personagem.Nome</a>
+                            </h4>
+                            <p class="card-text">@personagem.Descricao</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/Comic/Index/?id_personagem=@personagem.Id_marvel&limit=21&offset=0" target="_blank" type="button" class="btn btn-primary btn-sm" title="Comics"><i class="far fa-newspaper"></i></a>
+                            <a href="/Personagem/SalvarPersonagem/?id_personagem_marvel=@personagem.Id_marvel" type="button" class="btn btn-primary btn-sm" title="Salvar localmente"><i class="fas fa-download"></i></a>
+                            <a href="/Personagem/ExcluirPersonagem/?id_personagem_marvel=@personagem.Id_marvel" type="button" class="btn btn-danger btn-sm" title="Excluir cópia local"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- /Elemento personagem -->
+            <!-- Paginador -->
+            @if (ViewBag.total > ViewBag.limit)
+            {
+                int offset = ViewBag.offset;
+                int limit = ViewBag.limit;
+                int atual = 0;
+                int retorna = offset - limit;
+                int avanca = offset + limit;
+
+                <div class="paginator">
+                    <a href="/Personagem/Index/?limit=@ViewBag.limit&offset=@retorna ">&laquo;</a>
+                    @for (int i = 0; i < Convert.ToInt32(ViewBag.paginator); i++)
+                    {
+                        if (atual != offset)
+                        {
+
+                            <a href="/Personagem/Index/?limit=@ViewBag.limit&offset=@atual ">@i</a>
+                        }
+                        else
+                        {
+                            <a class="active" href="/Personagem/Index/?limit=@ViewBag.limit&offset=@atual ">@i</a>
+                        }
+                        { atual += limit; }
+
+                    }
+                    <a href="/Personagem/Index/?limit=@ViewBag.limit&offset=@avanca ">&raquo;</a>
+                </div>
+            }
+            <!-- /Paginador -->
+        </div>
+    </div>
+</div>
