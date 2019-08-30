@@ -19,8 +19,11 @@
                             <p class="card-text">@personagem.Descricao</p>
                         </div>
                         <div class="card-footer">
+                            <!-- Botão listar comics -->
                             <a href="/Comic/Index/?id_personagem=@personagem.Id_marvel&limit=21&offset=0" target="_blank" type="button" class="btn btn-primary btn-sm" title="Comics"><i class="far fa-newspaper"></i></a>
+                            <!-- Botão salvar personagem -->
                             <a href="/Personagem/SalvarPersonagem/?id_personagem_marvel=@personagem.Id_marvel" type="button" class="btn btn-primary btn-sm" title="Salvar localmente"><i class="fas fa-download"></i></a>
+                            <!-- Botão excluir personagem -->
                             <a href="/Personagem/ExcluirPersonagem/?id_personagem_marvel=@personagem.Id_marvel" type="button" class="btn btn-danger btn-sm" title="Excluir cópia local"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </div>

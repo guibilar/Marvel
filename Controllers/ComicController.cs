@@ -136,7 +136,7 @@ namespace Marvel.Controllers
                         cRep.Save(comic_salvar);
 
                         ViewBag.title = "Sucesso";
-                        ViewBag.message = "Comic salvo com sucesso";
+                        ViewBag.message = "Comic salva com sucesso";
 
                         return View("Message");
                     }
@@ -177,7 +177,7 @@ namespace Marvel.Controllers
                 if (comic == null)
                 {
                     ViewBag.title = "Erro";
-                    ViewBag.message = "Comic não encontrado";
+                    ViewBag.message = "Comic não encontrada";
                     return View("Message");
                 }
                 //Caso exista exclui o personagem retorna uma mensagem informativa
@@ -185,7 +185,7 @@ namespace Marvel.Controllers
                 {
                     cRep.RemoveById(comic.Id);
                     ViewBag.title = "Sucesso";
-                    ViewBag.message = "Comic excluido com sucesso";
+                    ViewBag.message = "Comic excluida com sucesso";
                     return View("Message");
                 }
             }

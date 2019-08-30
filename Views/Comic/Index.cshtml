@@ -23,7 +23,9 @@
                                     <p class="card-text">@comic.Descricao</p>
                                 </div>
                                 <div class="card-footer">
+                                    <!-- Botão salvar comic -->
                                     <a href="/Comic/SalvarComic/?id_comic_marvel=@comic.Id_marvel" type="button" class="btn btn-primary btn-sm" title="Salvar localmente"><i class="fas fa-download"></i></a>
+                                    <!-- Botão excluir comic -->
                                     <a href="/Comic/ExcluirComic/?id_comic_marvel=@comic.Id_marvel" type="button" class="btn btn-danger btn-sm" title="Excluir cópia local"><i class="fas fa-trash-alt"></i></a>
 
                                 </div>
